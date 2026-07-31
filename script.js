@@ -291,17 +291,13 @@ document.getElementById("deviceDetails").innerHTML = `
 
 const nodes = new vis.DataSet([
 
-{id:1,label:"Internet"},
+{id:1,label:"📡 Access Point\n192.168.1.1"},
 
-{id:2,label:"Firewall\n🔴"},
+{id:2,label:"💻 Laptop\n192.168.1.211"},
 
-{id:3,label:"Core Switch\n🟢"},
+{id:3,label:"📱 Xiaomi\n192.168.1.250"},
 
-{id:4,label:"Router-KL"},
-
-{id:5,label:"Switch-01"},
-
-{id:6,label:"Access Point"}
+{id:4,label:"📱 Nubia\n192.168.1.187"}
 
 ]);
 
@@ -310,13 +306,9 @@ const edges = new vis.DataSet([
 
 {from:1,to:2},
 
-{from:2,to:3},
+{from:1,to:3},
 
-{from:3,to:4},
-
-{from:3,to:5},
-
-{from:5,to:6}
+{from:1,to:4}
 
 ]);
 
@@ -347,31 +339,41 @@ shape:"box"
 
 new vis.Network(container,data,options);
 
-function simulateNetworkFailure(){
+function updateTopology(){
 
+    devices.forEach(device=>{
 
-let randomDevice =
-devices[Math.floor(Math.random()*devices.length)];
+        let color = device.status=="UP"
+        ? "lightgreen"
+        : "red";
 
+        if(nodes.get(device.id)){
 
-if(randomDevice.name!="Firewall" &&
-randomDevice.name!="Branch-Router-JB"){
+            nodes.update({
 
+                id: device.id,
 
-randomDevice.status =
-randomDevice.status=="UP" ? "DOWN":"UP";
+                label:
+                (device.type=="Phone"?"📱":
+                device.type=="Laptop"?"💻":
+                "📡")
+                +
+                " "+device.name+
+                "\n"+
+                device.ip,
 
+                color:{
+                    background: color,
+                    border:"#333"
+                }
+
+            });
+
+        }
+
+    });
 
 }
-
-
-}
-
-setInterval(()=>{
-
-simulateNetworkFailure();
-
-},15000);
 
 async function loadDevices(){
 
@@ -380,5 +382,7 @@ const response = await fetch("http://127.0.0.1:5000/api/devices");
 devices = await response.json();
 
 updateDashboard(currentFilter,currentKeyword);
+
+updateTopology();
 
 }

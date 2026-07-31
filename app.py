@@ -67,23 +67,49 @@ def check_ping(ip):
 devices = [
 
 {
-"name":"Router-KL",
-"ip":"10.1.1.1",
-"status":"UP",
-"cpu":45,
+"id":1,
+"name":"Access Point",
+"ip":"192.168.1.1",
+"type":"Access Point",
+"status":"UNKNOWN",
+"cpu":0,
 "last_check":""
 },
 
+
 {
-"name":"My-Laptop",
-"ip":"127.0.0.1",
-"status":"UP",
-"cpu":20,
+"id":2,
+"name":"Laptop",
+"ip":"192.168.1.211",
+"type":"Laptop",
+"status":"UNKNOWN",
+"cpu":0,
+"last_check":""
+},
+
+
+{
+"id":3,
+"name":"Xiaomi",
+"ip":"192.168.1.250",
+"type":"Phone",
+"status":"UNKNOWN",
+"cpu":0,
+"last_check":""
+},
+
+
+{
+"id":4,
+"name":"Nubia",
+"ip":"192.168.1.187",
+"type":"Phone",
+"status":"UNKNOWN",
+"cpu":0,
 "last_check":""
 }
 
 ]
-
 
 alerts = []
 
@@ -116,9 +142,14 @@ def get_devices():
             if old_status != device["status"]:
 
                 event = {
-                    ...
-                }
 
+                    "name": device["name"],
+                    "ip": device["ip"],
+                    "old_status": old_status,
+                    "new_status": device["status"],
+                    "last_check": device["last_check"]
+
+}
                 save_alert(event)
 
 
