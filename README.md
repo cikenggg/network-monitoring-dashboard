@@ -1,5 +1,10 @@
 # Network Monitoring Dashboard
 
+
+![Dashboard Screenshot 1](images/Dashboard1.png)
+
+![Dashboard Screenshot 2](images/Dashboard2.png)
+
 A real-time network monitoring dashboard built using Flask, SQLite and JavaScript.
 
 ## Features
