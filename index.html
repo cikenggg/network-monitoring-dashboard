@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Network Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Network Operations Dashboard</h1>
+
+<div class="info">
+
+<h3>Last Update:</h3>
+<p id="time">--</p>
+
+</div>
+
+<div class="container">
+
+    <div class="card">
+        <h3>Total Devices</h3>
+        <p id="totalDevice">0</p>
+    </div>
+
+
+    <div class="card">
+        <h3>Online</h3>
+        <p class="green" id="onlineDevice">0</p>
+    </div>
+
+
+    <div class="card">
+        <h3>Offline</h3>
+        <p class="red" id="offlineDevice">0</p>
+    </div>
+
+    <div class="card">
+
+<h3>Critical</h3>
+
+<p class="red" id="criticalAlert">0</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Warning</h3>
+
+<p id="warningAlert">0</p>
+
+</div>
+
+
+    <div class="card">
+        <h3>CPU Average</h3>
+        <p>65%</p>
+    </div>
+
+</div>
+
+
+<h2>Device Status</h2>
+
+<h2>CPU Usage Monitoring</h2>
+
+<canvas id="cpuChart"></canvas>
+<h2>System Alerts</h2>
+
+<div id="alerts">
+
+No alerts
+
+</div>
+
+<div class="filter">
+
+<button type="button" onclick="showAll()">ALL</button>
+
+<button type="button" onclick="showOnline()">ONLINE</button>
+
+<button type="button" onclick="showOffline()">OFFLINE</button>
+
+</div>
+
+
+<input 
+type="text" 
+id="searchBox" 
+placeholder="Search device..."
+onkeyup="searchDevice()"
+onkeydown="return event.key != 'Enter';">
+
+
+<table>
+
+<h2>Device Details</h2>
+
+<h2>Network Topology</h2>
+
+<div id="networkMap"></div>
+
+<div id="deviceDetails">
+
+Select a device
+
+</div>
+
+<thead>
+
+<tr>
+    <th>Device</th>
+    <th>IP Address</th>
+    <th>Status</th>
+    <th>CPU</th>
+    <th>Last Check</th>
+
+</tr>
+
+</thead>
+
+
+<tbody id="deviceTable">
+
+</tbody>
+
+
+</table>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
